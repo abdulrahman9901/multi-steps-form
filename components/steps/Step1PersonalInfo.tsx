@@ -4,12 +4,20 @@ import { useState } from "react";
 
 interface Step1PersonalInfoProps {
   onNext: (data: { name: string; email: string; phone: string }) => void;
+  initialName?: string;
+  initialEmail?: string;
+  initialPhone?: string;
 }
 
-export function Step1PersonalInfo({ onNext }: Step1PersonalInfoProps) {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+export function Step1PersonalInfo({
+  onNext,
+  initialName = "",
+  initialEmail = "",
+  initialPhone = "",
+}: Step1PersonalInfoProps) {
+  const [name, setName] = useState(initialName);
+  const [email, setEmail] = useState(initialEmail);
+  const [phone, setPhone] = useState(initialPhone);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   function validate(): boolean {
@@ -37,11 +45,17 @@ export function Step1PersonalInfo({ onNext }: Step1PersonalInfoProps) {
         Please provide your name, email address, and phone number.
       </p>
       <form onSubmit={handleSubmit} className="step-form" noValidate aria-describedby={hasErrors ? "form-errors" : undefined}>
-        {hasErrors && (
-          <div id="form-errors" role="alert" aria-live="polite" className="sr-only">
-            {Object.keys(errors).length} error{Object.keys(errors).length > 1 ? "s" : ""} found. Please fix the fields above.
-          </div>
-        )}
+        <div
+          id="form-errors"
+          role="alert"
+          aria-live="polite"
+          aria-atomic="true"
+          className="sr-only"
+        >
+          {hasErrors
+            ? `${Object.keys(errors).length} error${Object.keys(errors).length > 1 ? "s" : ""} found. Please fix the fields above.`
+            : null}
+        </div>
         <div className="field">
           <div className="field__header">
             <label htmlFor="name">Name</label>

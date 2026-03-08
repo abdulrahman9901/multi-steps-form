@@ -65,9 +65,19 @@ export default function Home() {
   return (
     <main className="page">
       <div className="card">
-        <Sidebar currentStep={step === 5 ? 4 : step} />
+        <Sidebar
+          currentStep={step === 5 ? 4 : step}
+          onStepSelect={(s) => setStep(s)}
+        />
         <div className="card__content">
-          {step === 1 && <Step1PersonalInfo onNext={handleStep1Next} />}
+          {step === 1 && (
+            <Step1PersonalInfo
+              onNext={handleStep1Next}
+              initialName={formData.name}
+              initialEmail={formData.email}
+              initialPhone={formData.phone}
+            />
+          )}
           {step === 2 && (
             <Step2SelectPlan
               onNext={handleStep2Next}

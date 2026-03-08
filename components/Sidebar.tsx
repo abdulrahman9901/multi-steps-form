@@ -1,8 +1,8 @@
 const STEPS = [
-  { num: 1, label: "YOUR INFO" },
-  { num: 2, label: "SELECT PLAN" },
-  { num: 3, label: "ADD-ONS" },
-  { num: 4, label: "SUMMARY" },
+  { num: 1, label: "YOUR INFO", description: "Your information" },
+  { num: 2, label: "SELECT PLAN", description: "Select plan" },
+  { num: 3, label: "ADD-ONS", description: "Add-ons" },
+  { num: 4, label: "SUMMARY", description: "Summary" },
 ] as const;
 
 interface SidebarProps {
@@ -20,10 +20,14 @@ export function Sidebar({ currentStep }: SidebarProps) {
       }}
     >
       <nav className="sidebar__steps" aria-label="Form steps">
-        {STEPS.map(({ num, label }) => {
+        {STEPS.map(({ num, label, description }) => {
           const isActive = num === currentStep;
           return (
-            <div key={num} className="sidebar__step">
+            <div
+              key={num}
+              className="sidebar__step"
+              aria-label={`Step ${num} of 4: ${description}`}
+            >
               <span
                 className={`sidebar__number ${isActive ? "sidebar__number--active" : ""}`}
                 aria-current={isActive ? "step" : undefined}

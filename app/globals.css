@@ -87,6 +87,9 @@ body {
 .sidebar {
   width: 274px;
   flex-shrink: 0;
+  background-image: url(/assets/images/bg-sidebar-desktop.svg);
+  background-size: cover;
+  background-position: center;
   padding: 2.5rem 2rem;
 }
 
